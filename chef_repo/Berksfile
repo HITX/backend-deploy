@@ -1,0 +1,10 @@
+source "https://supermarket.chef.io"
+
+# cookbook 'build-essential', '~> 2.2.3'
+cookbook 'chef-solo-search', '~> 0.5.1'
+cookbook 'application', '~> 3.0.0'
+cookbook 'application_nginx', '~> 2.0.2'
+# cookbook 'application_python', '~> 3.0.0'
+cookbook 'gunicorn', '~> 1.2.0'
+cookbook 'python', '~> 1.4.6'
+cookbook 'supervisor', '~> 0.4.12'

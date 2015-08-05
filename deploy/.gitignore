@@ -1,0 +1,6 @@
+*
+!.gitignore
+!fab_hosts
+!ssh
+!settings
+!environment_template
