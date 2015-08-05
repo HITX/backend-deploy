@@ -1,7 +1,7 @@
 include_recipe 'application'
 
 database_settings = node['database']
-# mig_command = 'sudo /srv/save/shared/env/bin/python manage.py syncdb --noinput'
+# mig_command = 'sudo /srv/internshyps/shared/env/bin/python manage.py syncdb --noinput'
 
 directory '/srv/internshyps/shared' do
   recursive true
@@ -9,7 +9,7 @@ directory '/srv/internshyps/shared' do
 end
 
 application 'internshyps' do
-  # only_if { node['roles'].include? 'save_application_server' }
+  # only_if { node['roles'].include? 'internshyps_application_server' }
   path '/srv/internshyps'
   owner 'nobody'
   group 'nogroup'

@@ -45,7 +45,7 @@ fi
 # Build docker image
 if [ $BUILD -eq 1 ]; then
   message "Building docker image..."
-  docker build -t save_deployment .
+  docker build -t internshyps_deploy .
   if [ $? -ne 0 ]; then
     error "Failed to build docker image"
     exit $?
@@ -55,4 +55,4 @@ fi
 # Run docker image
 message "Running docker image..."
 clear
-docker run --env-file=deploy/environment -tiv $(pwd):/project/save_deployment save_deployment /bin/bash
+docker run --env-file=deploy/environment -tiv $(pwd):/project/internshyps_deploy internshyps_deploy /bin/bash

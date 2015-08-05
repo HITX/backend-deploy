@@ -1,4 +1,4 @@
-name 'save_application_server'
+name 'internshyps_application_server'
 description 'A node hosting a running Django/gunicorn process'
 
 settings = Chef::EncryptedDataBagItem.load('config', 'config_1')
@@ -27,5 +27,5 @@ default_attributes(
   }
 )
 
-# run_list('recipe[build-essential]', 'recipe[save]')
+# run_list('recipe[build-essential]', 'recipe[internshyps]')
 run_list 'recipe[internshyps]'
