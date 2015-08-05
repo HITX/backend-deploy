@@ -3,14 +3,14 @@ include_recipe 'application'
 database_settings = node['database']
 # mig_command = 'sudo /srv/save/shared/env/bin/python manage.py syncdb --noinput'
 
-directory '/srv/save/shared' do
+directory '/srv/internshyps/shared' do
   recursive true
   action :create
 end
 
-application 'save' do
+application 'internshyps' do
   # only_if { node['roles'].include? 'save_application_server' }
-  path '/srv/save'
+  path '/srv/internshyps'
   owner 'nobody'
   group 'nogroup'
   repository "https://github.com/#{node.repo}.git"
@@ -20,7 +20,7 @@ application 'save' do
   # packages ["libpq-dev", "git-core", "mercurial"]
 
   django do
-    only_if { node['roles'].include? 'save_application_server' }
+    only_if { node['roles'].include? 'internshyps_application_server' }
     # packages ["redis"]
     # migration_command mig_command
     requirements 'requirements/requirements.txt'
@@ -37,12 +37,12 @@ application 'save' do
   end
 
   gunicorn do
-    only_if { node['roles'].include? 'save_application_server' }
+    only_if { node['roles'].include? 'internshyps_application_server' }
     app_module :django
   end
 
   nginx_load_balancer do
-    only_if { node['roles'].include? 'save_load_balancer' }
+    only_if { node['roles'].include? 'internshyps_load_balancer' }
     application_port 8080
     static_files "/static" => "static"
   end
