@@ -28,4 +28,4 @@ default_attributes(
 )
 
 # run_list('recipe[build-essential]', 'recipe[save]')
-run_list 'recipe[save]'
+run_list 'recipe[internshyps]'

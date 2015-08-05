@@ -1,1 +1,1 @@
-{"run_list":["role[save_load_balancer]", "role[save_application_server]"]}
+{"run_list":["role[internshyps_load_balancer]", "role[internshyps_application_server]"]}
