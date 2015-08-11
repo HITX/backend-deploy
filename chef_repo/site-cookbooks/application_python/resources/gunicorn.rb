@@ -21,6 +21,7 @@
 include ApplicationCookbook::ResourceBase
 
 attribute :app_module, :kind_of => [String, Symbol, NilClass], :default => nil
+attribute :app_name, :kind_of => String, :default => nil
 # Actually defaults to "settings.py.erb", but nil means it wasn't set by the user
 attribute :settings_template, :kind_of => [String, NilClass], :default => nil
 attribute :host, :kind_of => String, :default => '0.0.0.0'

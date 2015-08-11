@@ -449,7 +449,6 @@ def run_chef(name):
     print(_yellow("--RUNNING CHEF--"))
     node = "./nodes/{name}_node.json".format(name=name)
     with lcd('chef_repo'):
-        # local("pwd")
         local("knife solo cook -i {key_file} {host} {node}".format(
             key_file=env.aws_ssh_key_path,
             host=env.host_string,

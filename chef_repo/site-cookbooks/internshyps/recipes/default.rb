@@ -1,5 +1,6 @@
 include_recipe 'application'
 
+django_secret_key = node['django_secret_key']
 database_settings = node['database']
 
 user 'deploy' do
@@ -28,6 +29,7 @@ application 'internshyps' do
     requirements 'requirements/requirements.txt'
     debug true
     collectstatic true
+    secret_key django_secret_key
     database do
       host database_settings['host']
       port database_settings['port']
@@ -41,6 +43,7 @@ application 'internshyps' do
   gunicorn do
     only_if { node['roles'].include? 'internshyps_application_server' }
     app_module :django
+    app_name 'apiserver'
   end
 
   nginx_load_balancer do

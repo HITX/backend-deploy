@@ -4,5 +4,6 @@
   "DOMAIN": "TODO",
   "APP_NAME": "TODO",
   "REPO": "TODO",
-  "GITHUB_USER": "TODO"
+  "GITHUB_USER": "TODO",
+  "DJANGO_SECRET_KEY": "TODO",
 }
