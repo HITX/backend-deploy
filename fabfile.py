@@ -104,7 +104,7 @@ def setup_aws_account():
         if e.code == 'InvalidGroup.NotFound':
             print 'Creating RDS Security Group: %s' % env.aws_rds_security_group_name
             rds_group = ec2.create_security_group(env.aws_rds_security_group_name,
-                                                'A group that allows SSH and Postgres access')
+                                                'A group that allows Postgres access')
         else:
             raise
 
@@ -129,7 +129,7 @@ def setup_aws_account():
             else:
                 raise
 
-    for port in ["5432", env.aws_ssh_port]:
+    for port in ["5432"]:
         try:
             rds_group.authorize('tcp', port, port, src_group=ec2_group)
         except ec2.ResponseError, e:
