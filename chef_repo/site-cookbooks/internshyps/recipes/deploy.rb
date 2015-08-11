@@ -3,16 +3,6 @@ include_recipe 'application'
 django_secret_key = node['django_secret_key']
 database_settings = node['database']
 
-# user 'deploy' do
-#   system true
-#   shell '/bin/false'
-# end
-
-# directory '/srv/internshyps/shared' do
-#   recursive true
-#   action :create
-# end
-
 application 'internshyps' do
   path '/srv/internshyps'
   owner 'deploy'
@@ -21,7 +11,6 @@ application 'internshyps' do
   revision 'master'
   deploy_key node['github_deploy_key']
   migrate true
-  # packages ['libpq-dev', 'python-dev', 'gcc']
 
   django do
     requirements 'requirements/requirements.txt'
