@@ -45,6 +45,7 @@ env.root_directory = os.path.dirname(os.path.realpath(__file__))
 env.deploy_directory = os.path.join(env.root_directory, 'deploy')
 env.app_settings_directory = os.path.join(env.deploy_directory, 'settings')
 env.app_settings_base = os.path.join(env.app_settings_directory, 'base.json')
+env.app_settings_deploy_key = os.path.join(env.app_settings_directory, 'deploy_key')
 env.fab_hosts_directory = os.path.join(env.deploy_directory, 'fab_hosts')
 env.ssh_directory = os.path.join(env.deploy_directory, 'ssh')
 env.aws_ssh_key_extension = '.pem'
@@ -402,6 +403,12 @@ def build_databag(dbname):
     # Add db settings to tmp settings
     with open(os.path.join(env.app_settings_directory, ''.join([dbname, '.json'])), 'r') as f:
         tmp_settings.update(json.load(f))
+
+    # Add deploy key to tmp settings
+    with open(env.app_settings_deploy_key, 'r') as f:
+        tmp_settings.update({
+            'GITHUB_DEPLOY_KEY': f.read().replace('\n', '\\n')
+        })
 
     # Write out tmp settings
     tmp_settings_path = 'chef_repo/tmp_settings.json'

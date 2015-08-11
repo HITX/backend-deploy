@@ -1,7 +1,11 @@
 include_recipe 'application'
 
 database_settings = node['database']
-# mig_command = 'sudo /srv/internshyps/shared/env/bin/python manage.py syncdb --noinput'
+
+user 'deploy' do
+  system true
+  shell '/bin/false'
+end
 
 directory '/srv/internshyps/shared' do
   recursive true
@@ -9,20 +13,18 @@ directory '/srv/internshyps/shared' do
 end
 
 application 'internshyps' do
-  # only_if { node['roles'].include? 'internshyps_application_server' }
   path '/srv/internshyps'
-  owner 'nobody'
+  owner 'deploy'
   group 'nogroup'
-  repository "https://github.com/#{node.repo}.git"
+  # repository "https://github.com/#{node.repo}.git"
+  repository "git@github.com:#{node.repo}.git"
   revision 'master'
+  deploy_key node['github_deploy_key']
   migrate true
   packages ['libpq-dev', 'python-dev', 'gcc']
-  # packages ["libpq-dev", "git-core", "mercurial"]
 
   django do
     only_if { node['roles'].include? 'internshyps_application_server' }
-    # packages ["redis"]
-    # migration_command mig_command
     requirements 'requirements/requirements.txt'
     debug true
     collectstatic true
