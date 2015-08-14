@@ -314,10 +314,17 @@ def deploy(name):
     deploy_app(name)
 
 @task
-def restart():
+def restart(name=None):
     """
     Reload nginx/gunicorn
     """
+
+    if name is not None:
+        with open("deploy/fab_hosts/{}.txt".format(name)) as f:
+            env.host_string = "ubuntu@{}".format(f.readline().strip())
+
+    env.key_filename = env.aws_ssh_key_path
+
     with settings(warn_only=True):
         with open(env.app_settings_base) as f:
             app_settings = json.load(f)
