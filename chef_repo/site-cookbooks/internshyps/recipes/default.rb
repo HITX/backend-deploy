@@ -17,7 +17,6 @@ application 'internshyps' do
   path '/srv/internshyps'
   owner 'deploy'
   group 'nogroup'
-  # repository "https://github.com/#{node.repo}.git"
   repository "git@github.com:#{node.repo}.git"
   revision 'master'
   deploy_key node['github_deploy_key']

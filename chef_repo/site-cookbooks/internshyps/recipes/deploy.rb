@@ -14,7 +14,7 @@ application 'internshyps' do
 
   django do
     requirements 'requirements/requirements.txt'
-    debug true
+    debug false
     collectstatic true
     secret_key django_secret_key
     database do

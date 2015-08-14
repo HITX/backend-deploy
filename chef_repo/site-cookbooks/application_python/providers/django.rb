@@ -26,7 +26,8 @@ action :before_compile do
 
   include_recipe 'python'
 
-  new_resource.migration_command "#{::File.join(new_resource.virtualenv, "bin", "python")} manage.py syncdb --noinput" if !new_resource.migration_command
+  # new_resource.migration_command "#{::File.join(new_resource.virtualenv, "bin", "python")} manage.py syncdb --noinput" if !new_resource.migration_command
+  new_resource.migration_command "#{::File.join(new_resource.virtualenv, "bin", "python")} manage.py migrate" if !new_resource.migration_command
 
   new_resource.symlink_before_migrate.update({
     new_resource.local_settings_base => new_resource.local_settings_file,
