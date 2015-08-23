@@ -138,7 +138,7 @@ def created_settings_file
     group new_resource.group
     mode "644"
     variables new_resource.settings.clone
-    variables.update :debug => new_resource.debug, :secret_key => new_resource.secret_key
+    variables.update debug: new_resource.debug, secret_key: new_resource.secret_key, app_domain: new_resource.app_domain
     variables.update :database => {
       :host => host,
       :settings => new_resource.database,

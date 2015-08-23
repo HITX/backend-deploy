@@ -1,5 +1,6 @@
 include_recipe 'application'
 
+app_domain = node['app_domain']
 django_secret_key = node['django_secret_key']
 database_settings = node['database']
 
@@ -29,6 +30,7 @@ application 'internshyps' do
     debug false
     collectstatic true
     secret_key django_secret_key
+    app_domain app_domain
     database do
       host database_settings['host']
       port database_settings['port']
@@ -48,6 +50,8 @@ application 'internshyps' do
   nginx_load_balancer do
     only_if { node['roles'].include? 'internshyps_load_balancer' }
     application_port 8080
+    server_name "api.#{app_domain}"
+    set_host_header true
     static_files "/static" => "static"
   end
 end

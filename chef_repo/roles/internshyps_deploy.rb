@@ -3,7 +3,7 @@ description 'For deploying to an already bootstrapped apiserver node'
 
 settings = Chef::EncryptedDataBagItem.load('config', 'config_1')
 debug = settings['DEBUG']
-domain = settings['DOMAIN']
+app_domain = settings['APP_DOMAIN']
 app_name = settings['APP_NAME']
 repo = settings['REPO']
 github_user = settings['GITHUB_USER']
@@ -21,6 +21,7 @@ default_attributes(
   'repo' => "#{github_user}/#{repo}",
   'github_deploy_key' => github_deploy_key.gsub(/\\n/, "\n"),
   'ec2_host' => ec2_host,
+  'app_domain' => app_domain,
   'django_secret_key' => django_secret_key,
   'database' => {
     'host' => db_host,

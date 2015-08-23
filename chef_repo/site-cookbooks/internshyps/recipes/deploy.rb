@@ -1,5 +1,6 @@
 include_recipe 'application'
 
+app_domain = node['app_domain']
 django_secret_key = node['django_secret_key']
 database_settings = node['database']
 
@@ -17,6 +18,7 @@ application 'internshyps' do
     debug false
     collectstatic true
     secret_key django_secret_key
+    app_domain app_domain
     database do
       host database_settings['host']
       port database_settings['port']

@@ -2,6 +2,8 @@ DEBUG = <%= @debug ? "True" : "False" %>
 
 SECRET_KEY = '<%= @secret_key %>'
 
+ALLOWED_HOSTS = ['.<%= @app_domain %>']
+
 DATABASES = {
     'default': {
         'NAME': '<%= @database[:settings][:database] %>',

@@ -300,13 +300,6 @@ def bootstrap(name, no_install=False, dbname=None):
 
 @task
 def deploy(name):
-    """
-    Bootstrap the specified server. Install chef then run chef solo.
-    :param name: The name of the node to be bootstrapped
-    :param no_install: Optionally skip the Chef installation
-    since it takes time and is unneccesary after the first run
-    :return:
-    """
 
     print(_green("--DEPLOYING {}--".format(name)))
     f = open("deploy/fab_hosts/{}.txt".format(name))
