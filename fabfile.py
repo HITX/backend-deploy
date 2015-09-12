@@ -10,6 +10,8 @@ from fabric.context_managers import hide, show, lcd
 import boto
 import boto.ec2
 import boto.rds
+import boto.s3
+import boto.iam
 import time
 
 # from fabric.network import key_filenames, ssh
@@ -146,6 +148,46 @@ def setup_aws_account():
     #         print 'Security Group: %s already authorized' % env.aws_security_group_name  # noqa
     #     else:
     #         raise
+
+@task
+def setup_s3():
+    print 'Will setup S3 here'
+
+    print(_green('Started setting up S3 bucket(s)...'))
+
+    s3_conn = connect_to_s3()
+    iam_conn = connect_to_iam()
+
+    # Create media bucket
+    try:
+        bucket = s3_conn.get_bucket('internshyps-media')
+    except boto.exception.S3ResponseError, e:
+        bucket = s3_conn.create_bucket('internshyps-media')
+        cors_config = boto.s3.cors.CORSConfiguration()
+        cors_config.add_rule(
+            allowed_method='POST',
+            allowed_origin='*',
+            allowed_header='*',
+            max_age_seconds=3000
+        )
+        bucket.set_cors(cors_config)
+
+    # Create iam group
+    try:
+        group = iam_conn.get_group('uploader')
+    except iam_conn.ResponseError, e:
+        group = iam_conn.create_group('uploader')
+
+        policy_json = '''{
+            "Version":"2012-10-17",
+            "Statement":[{
+                "Effect":"Allow",
+                "Action":"s3:PutObject",
+                "Resource":"arn:aws:s3:::internshyps-media/*"
+            }]
+        }
+        '''
+        iam_conn.put_group_policy('uploader', 'upload', policy_json)
 
 @task
 def create_instance(name, tag=None):
@@ -353,6 +395,24 @@ def connect_to_ec2():
     if not ec2_connection:
         raise Exception("We're having a problem connecting to your AWS account. Are you sure you entered your credentials correctly?")
     return ec2_connection
+
+def connect_to_s3():
+    s3_connection = boto.connect_s3(
+        env.aws_access_key_id,
+        env.aws_secret_access_key
+    )
+    if not s3_connection:
+        raise Exception("We're having a problem connecting to your AWS account. Are you sure you entered your credentials correctly?")
+    return s3_connection
+
+def connect_to_iam():
+    iam_connection = boto.connect_iam(
+        env.aws_access_key_id,
+        env.aws_secret_access_key
+    )
+    if not iam_connection:
+        raise Exception("We're having a problem connecting to your AWS account. Are you sure you entered your credentials correctly?")
+    return iam_connection
 
 def connect_to_rds():
     rds_connection = boto.rds.connect_to_region(
