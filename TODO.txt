@@ -1,0 +1,1 @@
+- Add automatic bucket creation and configuration

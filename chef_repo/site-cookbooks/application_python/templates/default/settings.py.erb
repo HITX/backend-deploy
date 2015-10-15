@@ -4,6 +4,11 @@ SECRET_KEY = '<%= @secret_key %>'
 
 ALLOWED_HOSTS = ['.<%= @app_domain %>']
 
+AWS_ACCESS_KEY_ID = '<%= @upload[:aws_access_key] %>'
+AWS_SECRET_ACCESS_KEY = '<%= @upload[:aws_secret_key] %>'
+AWS_STORAGE_MEDIA_BUCKET_NAME = '<%= @upload[:aws_media_bucket] %>'
+AWS_STORAGE_STATIC_BUCKET_NAME = '<%= @upload[:aws_static_bucket] %>'
+
 DATABASES = {
     'default': {
         'NAME': '<%= @database[:settings][:database] %>',
@@ -21,4 +26,5 @@ DATABASE_USER = DATABASES['default']['USER']
 DATABASE_PASSWORD = DATABASES['default']['PASSWORD']
 DATABASE_HOST = DATABASES['default']['HOST']
 DATABASE_PORT = DATABASES['default']['PORT']
+
 <% end -%>

@@ -139,6 +139,13 @@ def created_settings_file
     mode "644"
     variables new_resource.settings.clone
     variables.update debug: new_resource.debug, secret_key: new_resource.secret_key, app_domain: new_resource.app_domain
+    variables.update upload: new_resource.upload
+    # variables.update upload: {
+    #   aws_access_key: new_resource.,
+    #   aws_secret_key: new_resource.,
+    #   aws_media_bucket: new_resource.,
+    #   aws_static_bucket: new_resource.
+    # }
     variables.update :database => {
       :host => host,
       :settings => new_resource.database,

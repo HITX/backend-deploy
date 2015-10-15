@@ -32,6 +32,7 @@ attribute :debug, :kind_of => [TrueClass, FalseClass], :default => false
 attribute :collectstatic, :kind_of => [TrueClass, FalseClass, String], :default => false
 attribute :secret_key, :kind_of => String, :default => ''
 attribute :app_domain, kind_of: String, default: ''
+attribute :upload, kind_of: Hash, default: {}
 
 def local_settings_base
   local_settings_file.split(/[\\\/]/).last

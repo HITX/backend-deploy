@@ -3,6 +3,7 @@ include_recipe 'application'
 app_domain = node['app_domain']
 django_secret_key = node['django_secret_key']
 database_settings = node['database']
+upload_settings = node['upload']
 
 user 'deploy' do
   system true
@@ -31,6 +32,7 @@ application 'internshyps' do
     collectstatic true
     secret_key django_secret_key
     app_domain app_domain
+    upload upload_settings
     database do
       host database_settings['host']
       port database_settings['port']

@@ -10,6 +10,10 @@ github_user = settings['GITHUB_USER']
 github_deploy_key = settings['GITHUB_DEPLOY_KEY']
 ec2_host = settings['EC2_HOST']
 django_secret_key = settings['DJANGO_SECRET_KEY']
+upload_access_key = settings['UPLOAD_ACCESS_KEY']
+upload_secret_key = settings['UPLOAD_SECRET_KEY']
+upload_media_bucket = settings['UPLOAD_MEDIA_BUCKET']
+upload_static_bucket = settings ['UPLOAD_STATIC_BUKET']
 db_host = settings['DB_HOST']
 db_port = settings['DB_PORT']
 db_name = settings['DB_NAME']
@@ -23,6 +27,12 @@ default_attributes(
   'ec2_host' => ec2_host,
   'app_domain' => app_domain,
   'django_secret_key' => django_secret_key,
+  'upload' => {
+    'aws_access_key' => upload_access_key,
+    'aws_secret_key' => upload_secret_key,
+    'aws_media_bucket' => upload_media_bucket,
+    'aws_static_bucket' => upload_static_bucket
+  },
   'database' => {
     'host' => db_host,
     'port' => db_port,
